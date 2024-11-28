@@ -1,0 +1,41 @@
+        public void kdLoad(string baiSo,string sectionVideo,string cap)
+        {
+            notBook.SelectedTab = tKdCommon; // (1)
+            mediaKDCm.URL = ""; (2)
+            //lvVideo.Clear();
+            lvVideo.Items.Clear(); (3)
+            //load anh Icon 
+            IconPath = iniConfig.RelativeToFullPath(@"...") + @"\img\kdIcon.png"; (4.1))
+            picIconKdCm.Image = Image.FromFile(IconPath); (4.2)
+            picIconKdCm.SizeMode = PictureBoxSizeMode.StretchImage; (4.3)
+            //Load List View/
+            strVideoPath = iniConfig.readIni(iniPathC, baiSo, sectionVideo); (5)
+            
+            foreach (string item in Directory.GetFiles(strVideoPath)) (6)
+            {
+                string temp = item.Substring(item.LastIndexOf("\\") + 1); (7)
+                string verName = Path.GetFileNameWithoutExtension(temp); (8)
+                Picturebox .Items.Add(verName); (9)
+
+            }
+            lbKdCmCap.Text = cap; (10)
+        }
+
+---> Mục đích chính : load tab Khởi động 
+(1) 
+- Trong phần mềm , để lưu trữ thông tin của từng phần KHởi Động , Khám Phá, Luyện Tập , Vận Dụng , ta dùng 1 control trong Winform C# 
+là Multipage
+ trong bài của mình e đặt code name của multipage sử dụng là notBook , và có các tab trong multipage này ứng với các code Name tự đặt 	
+  tab Khởi Động đặt là rKdCommon 
+  vậy (1) có nghĩa là trỏ tới tab Khởi Động( tKdCommon ) 
+(2) Load Link của Video để show trên control ( Window Media Player ) của winform
+(3) Xoá hết các tên video cũ đc hiển thị trong listview ( lvVideo) ( sau đó sẽ load mới ) 
+(4.1) Load file config , đọc đường dẫn trỏ tới folder img để lấy ảnh icon cho tab Khởi Động 
+(4.2) Load Ảnh icon vừa trỏ vào control Picturebox ( picIconKdCm ) 
+(4.3 ) setting cho ảnh load vào n tự khớp với kích thước của  Picturebox 
+(5) Load file config để lấy ra đường dẫn tới video cho phần khởi động
+(6) vòng lặp qua các phần tử file được lấy từ đường dẫn ở bước 5
+(7)cắt chuối kí tự ở dấu \\ cuối cùng để lấy ra tên của file ( bỏ phần đường dẫn phía trước nó ) 
+(8) cắt phần đuổi của file ( ví dụ xxx.mp4 thì chỉ lấy xxx ) 
+(9)  load tên vào listview Picturebox 
+(10) hiển thì tiêu để của phần khởi động theo biến Cap
